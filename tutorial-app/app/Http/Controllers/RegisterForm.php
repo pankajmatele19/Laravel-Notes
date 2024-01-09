@@ -16,8 +16,9 @@ class RegisterForm extends Controller
             [
                 'name' => 'required',
                 'email' => 'required|email',
-                'password' => 'required'
-            ]
+                'pass' => 'required',
+                'password_confirm' => 'required|same:pass'
+            ] 
         );
         echo "<pre>";
         print_r($request->all());
