@@ -13,8 +13,8 @@
     <div class="container">
     <form action="{{url('/')}}/register" method="post">
       @csrf
-      <div class="form-group">
-      <x-input type="text" name="name" placeholder="enter name" label="username"/>
+      {{-- <div class="form-group">
+      <input type="text" name="name" placeholder="enter name" label="username"/>
       </div>
       <div class="form-group">
         <x-input type="email" name="email" placeholder="enter email" label="email"/>
@@ -24,13 +24,14 @@
           </div>
           <div class="form-group">
             <x-input type="password" name="password_confirm" placeholder="confirm password" label="confirm password"/>
-            </div>
-      {{-- <pre>
+            </div> --}}
+              
+       <pre>
         @php
             print_r($errors -> all());
         @endphp
-      </pre> --}}
-      {{-- <div class="form-group">
+      </pre>
+      <div class="form-group">
         <label for="Username">Username</label>
         <input type="text" name="name" id="" class="form-control" placeholder="enter username" aria-describedby="helpId">
         <span class="text-danger">
@@ -65,7 +66,7 @@
             {{$message}}  
           @enderror
         </span>
-      </div> --}}
+      </div>
       
       <button class="btn btn-primary">Submit</button>
     </form>

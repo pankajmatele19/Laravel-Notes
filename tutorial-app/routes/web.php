@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\RegisterForm;
+use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\CustomerController;
 /*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,3 +54,13 @@ Route::get('/register',[RegisterForm::class, 'index']);
 
 Route::post('/register',[RegisterForm::class, 'register']);
 
+Route::get('/customer', function() {
+    $customer = Customer::all();
+
+    echo "<pre>";
+    print_r($customer);
+});
+
+Route::get("/regform",[CustomerController::class,"index"]);
+
+Route::post("/regform",[CustomerController::class,"store"]);
