@@ -14,7 +14,7 @@
 
 <body>
     <div class="container">
-        <form action="{{url('/')}}/regform"  method="post">
+        <form action="{{url('/')}}/customer/regform"  method="post">
             @csrf
             <div class="form-group">
                 <label for="">Name</label>

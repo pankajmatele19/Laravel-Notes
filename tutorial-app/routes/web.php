@@ -61,6 +61,12 @@ Route::get('/customer', function() {
     print_r($customer);
 });
 
-Route::get("/regform",[CustomerController::class,"index"]);
+Route::get("/customer/regform",[CustomerController::class,"index"]);
 
-Route::post("/regform",[CustomerController::class,"store"]);
+Route::post("/customer/regform",[CustomerController::class,"store"]);
+
+Route::get("/customer/view",[CustomerController::class,"view"]);
+
+Route::get("/customer/delete/{customerid}",[CustomerController::class,"delete"]);
+
+Route::get("/customer/delete/{customerid}",[CustomerController::class,"update"]);

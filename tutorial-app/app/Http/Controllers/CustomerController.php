@@ -21,5 +21,23 @@ class CustomerController extends Controller
         $customers->gender = $request['gender'];
 
         $customers->save();
+
+        return redirect('/customer/view');
+    }
+
+    public function view() {
+
+        $customer = Customer::all();
+
+        $data = compact('customer');
+
+        return view('customerview')->with($data);
+
+    }
+
+    public function delete($id) {
+        Customer::find($id)->delete();
+
+        return redirect()->back();
     }
 }
