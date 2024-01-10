@@ -13,26 +13,72 @@
 </head>
 
 <body>
-    <div class="container">
-        <form action="{{url('/')}}/customer/regform"  method="post">
-            @csrf
-            <div class="form-group">
-                <label for="">Name</label>
-                <input type="text" name="name" id="" class="form-control" placeholder="enter name">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="" class="form-control" placeholder="enter email">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="{{url('/customer/view')}}">Customer Management</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            </div>
-            <div class="form-group">
-                <label for="gender">Gender</label>
-                <br>
-                <input type="radio" name="gender" id="" class="form-radio" value="M">
-                <label for="gender">M</label>
-                <input type="radio" name="gender" id="" class="form-radio" value="F">
-                <label for="gender">F</label>
-                <input type="radio" name="gender" id="" class="form-radio" value="O">
-                <label for="gender">O</label>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/customer/view') }}">View <span
+                            class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Register</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+    <div class="container">
+        <h2> {{ $title }}</h2>
+        <form action={{ $url }} method="post">
+            @csrf
+            @if ($title == 'Update Customer')
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" name="name" id="" class="form-control" placeholder="enter name"
+                        value=" {{ $customer->name }}">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="" class="form-control" placeholder="enter email"
+                        value="{{ $customer->email }}">
+
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <br>
+                    <input type="radio" name="gender" id="" class="form-radio" value="M"
+                        {{ $customer->gender == 'M' ? 'checked' : '' }}>
+                    <label for="gender">Male</label>
+                    <input type="radio" name="gender" id="" class="form-radio" value="F"
+                        {{ $customer->gender == 'F' ? 'checked' : '' }}>
+                    <label for="gender">Female</label>
+                    <input type="radio" name="gender" id="" class="form-radio" value="O"
+                        {{ $customer->gender == 'O' ? 'checked' : '' }}>
+                    <label for="gender">Other</label>
+                </div>
+            @else
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" name="name" id="" class="form-control" placeholder="enter name">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="" class="form-control" placeholder="enter email">
+
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <br>
+                    <input type="radio" name="gender" id="" class="form-radio" value="M">
+                    <label for="gender">Male</label>
+                    <input type="radio" name="gender" id="" class="form-radio" value="F">
+                    <label for="gender">Female</label>
+                    <input type="radio" name="gender" id="" class="form-radio" value="O">
+                    <label for="gender">Other</label>
+                </div>
+            @endif
             <div class="form-group">
                 <button class="btn btn-primary">Register</button>
             </div>

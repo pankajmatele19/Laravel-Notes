@@ -69,4 +69,6 @@ Route::get("/customer/view",[CustomerController::class,"view"]);
 
 Route::get("/customer/delete/{customerid}",[CustomerController::class,"delete"]);
 
-Route::get("/customer/delete/{customerid}",[CustomerController::class,"update"]);
+Route::post("/customer/update/{customerid}",[CustomerController::class,"update"]);
+
+Route::get("/customer/edit/{customerid}",[CustomerController::class,"edit"]);
