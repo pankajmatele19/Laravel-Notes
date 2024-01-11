@@ -26,11 +26,11 @@
                     <a class="nav-link" href="{{ url('/customer/view') }}">View <span
                             class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/customer/regform') }}">Register</a>
-                </li>
+              
             </ul>
-
+            <a class="nav-item" href="{{ url('/customer/regform') }}"><button
+                            class="btn btn-primary my-2 my-sm-0">Register</button></a>
+            <a class="nav-item" href="{{ url('/customer/login') }}"><button class="btn btn-success my-2 my-sm-0">Login</button></a>
         </div>
     </nav>
     <br>
@@ -43,6 +43,7 @@
                     <th>Customer Id</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Password</th>
                     <th>Gender</th>
                     <th>Action</th>
                 </tr>
@@ -53,6 +54,7 @@
                         <td scope="row">{{ $cust->id }}</td>
                         <td>{{ $cust->name }}</td>
                         <td>{{ $cust->email }}</td>
+                        <td>{{ $cust->password }}</td>
                         <td>
                             @if ($cust->gender == 'M')
                                 Male
@@ -68,39 +70,38 @@
                                     class="btn btn-danger">Delete</button></a> --}}
 
                             <button type="button" class="btn btn-danger" data-toggle="modal"
-                                data-target="#exampleModal">
+                                data-target="#exampleModal-{{ $cust->id }}">
                                 Delete
                             </button>
                         </td>
-                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Are you sure ?</h5>
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            you want to delete this record
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
-                                            <a href="{{ url('/customer/delete') }}/{{ $cust->id }}"><button
-                                                    type="button" class="btn btn-primary">Confirm</button></a>
-                        
-    </div>
-    </div>
-    </div>
-    </div>
-    </td>
-    </tr>
-    @endforeach
-    </tbody>
-    </table>
+                        <div class="modal fade" id="exampleModal-{{ $cust->id }}" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Are you sure ?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        you want to delete this record
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <a href="{{ url('/customer/delete') }}/{{ $cust->id }}"><button
+                                                type="button" class="btn btn-primary">Confirm</button></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

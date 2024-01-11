@@ -14,7 +14,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="{{url('/customer/view')}}">Customer Management</a>
+        <a class="navbar-brand" href="{{ url('/customer/view') }}">Customer Management</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -26,11 +26,11 @@
                     <a class="nav-link" href="{{ url('/customer/view') }}">View <span
                             class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
-                </li>
             </ul>
-
+            <a class="nav-item" href="{{ url('/customer/regform') }}"><button
+                    class="btn btn-primary my-2 my-sm-0">Register</button></a>
+            <a class="nav-item" href="{{ url('/customer/login') }}"><button
+                    class="btn btn-success my-2 my-sm-0">Login</button></a>
         </div>
     </nav>
     <div class="container">
@@ -45,6 +45,9 @@
                     <label for="email">Email</label>
                     <input type="email" name="email" id="" class="form-control" placeholder="enter email"
                         value="{{ $customer->email }}">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="" class="form-control"
+                        placeholder="enter password" value="{{ $customer->password }}">
 
                 </div>
                 <div class="form-group">
@@ -66,6 +69,9 @@
                     <input type="text" name="name" id="" class="form-control" placeholder="enter name">
                     <label for="email">Email</label>
                     <input type="email" name="email" id="" class="form-control" placeholder="enter email">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="" class="form-control"
+                        placeholder="enter password">
 
                 </div>
                 <div class="form-group">

@@ -25,6 +25,7 @@ class CustomerController extends Controller
         $customers->name = $request['name'];
         $customers->email = $request['email'];
         $customers->gender = $request['gender'];
+        $customers->password = $request['password'];
 
         $customers->save();
 
@@ -66,7 +67,36 @@ class CustomerController extends Controller
         $customer->name = $request['name'];
         $customer->email = $request['email'];
         $customer->gender = $request['gender'];
+        $customer->password = $request['password'];
         $customer->save();
         return redirect('/customer/view');
     }
+
+    public function loginform() {
+        return view('login');
+    }
+
+    public function auth(Request $request) {
+
+        $request->validate(
+            [
+                'email' => 'required|email',
+                'password' => 'required',
+                'password_confirm' => 'required|same:password'
+            ]
+        );
+        // echo "<pre>";
+        // print_r($request->all());
+
+        $email = $request['email'];
+        $password= $request['password'];
+        $cust = Customer::where('email',$email)->where("password",$password)->first();
+        if ($cust->count() > 0) {
+            return redirect('/customer/view');
+        }
+        else {
+            return redirect('/customer/login');
+        }
+    }
+
 }
