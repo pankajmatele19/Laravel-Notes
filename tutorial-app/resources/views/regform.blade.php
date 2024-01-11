@@ -33,7 +33,7 @@
                     class="btn btn-success my-2 my-sm-0">Login</button></a>
         </div>
     </nav>
-    <div class="container">
+     <div class="container">
         <h2> {{ $title }}</h2>
         <form action={{ $url }} method="post">
             @csrf

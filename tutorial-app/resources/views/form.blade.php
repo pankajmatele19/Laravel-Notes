@@ -9,27 +9,43 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
+  <script>
+    $(document).ready(function(){
+    $('#form').on('submit', function(e){
+        e.preventDefault();
+        var data = $(this).serialize();
+        $.ajax({
+            url: '{{url('/')}}/register',
+            type: 'POST',
+            data: data,
+            success: function(response){
+                console.log(response);
+            }
+        });
+    });
+  });
+  </script>
   <body>
     <div class="container">
-    <form action="{{url('/')}}/register" method="post">
-      @csrf
-      {{-- <div class="form-group">
-      <input type="text" name="name" placeholder="enter name" label="username"/>
-      </div>
-      <div class="form-group">
-        <x-input type="email" name="email" placeholder="enter email" label="email"/>
+      <form id="form" method="post">
+        @csrf
+        {{-- <div class="form-group">
+          <input type="text" name="name" placeholder="enter name" label="username"/>
         </div>
         <div class="form-group">
-          <x-input type="password" name="pass" placeholder="enter password" label="password"/>
-          </div>
-          <div class="form-group">
-            <x-input type="password" name="password_confirm" placeholder="confirm password" label="confirm password"/>
-            </div> --}}
-              
-       <pre>
+          <x-input type="email" name="email" placeholder="enter email" label="email"/>
+      </div>
+      <div class="form-group">
+        <x-input type="password" name="pass" placeholder="enter password" label="password"/>
+      </div>
+      <div class="form-group">
+        <x-input type="password" name="password_confirm" placeholder="confirm password" label="confirm password"/>
+      </div> --}}
+      
+      <pre>
         @php
             print_r($errors -> all());
-        @endphp
+            @endphp
       </pre>
       <div class="form-group">
         <label for="Username">Username</label>
@@ -68,7 +84,7 @@
         </span>
       </div>
       
-      <button class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>  
   </body>

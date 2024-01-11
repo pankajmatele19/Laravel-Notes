@@ -20,6 +20,7 @@ class RegisterForm extends Controller
                 'password_confirm' => 'required|same:pass'
             ] 
         );
+        print_r($request->name);
         echo "<pre>";
         print_r($request->all());
     }
