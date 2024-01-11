@@ -10,6 +10,23 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+       <script>
+        $(document).ready(function(){
+    $('#login').on('submit', function(e){
+        e.preventDefault();
+        var form_data = $(this).serialize();
+        $.ajax({
+            url: "{{ url('/') }}/customer/login",
+            type: 'POST',
+            data: form_data,
+            success: function(response){
+                console.log(response);
+            }
+        });
+    });
+});
+</script>
+
 </head>
 
 <body>
@@ -20,7 +37,7 @@
       </pre> --}}
     <div class="container">
         <h2>Customer Login</h2>
-        <form action="{{ url('/') }}/customer/login" method="post">
+        <form id="login" method="post">
             @csrf
             <div class="form-group">
                 <label for="email">Email</label>
@@ -49,7 +66,7 @@
                 </span>
             </div>
             <div class="form-group">
-                <button class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">Login</button>
             </div>
         </form>
     </div>

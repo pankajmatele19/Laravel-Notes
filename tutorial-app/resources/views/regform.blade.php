@@ -33,7 +33,7 @@
                     class="btn btn-success my-2 my-sm-0">Login</button></a>
         </div>
     </nav>
-     <div class="container">
+    <div class="container">
         <h2> {{ $title }}</h2>
         <form action={{ $url }} method="post">
             @csrf
@@ -67,11 +67,34 @@
                 <div class="form-group">
                     <label for="">Name</label>
                     <input type="text" name="name" id="" class="form-control" placeholder="enter name">
+                    <span class="text-danger">
+                        @error('name')
+                            {{ $message }}
+                        @enderror
+                    </span>
                     <label for="email">Email</label>
                     <input type="email" name="email" id="" class="form-control" placeholder="enter email">
+                    <span class="text-danger">
+                        @error('email')
+                            {{ $message }}
+                        @enderror
+                    </span>
                     <label for="password">Password</label>
                     <input type="password" name="password" id="" class="form-control"
                         placeholder="enter password">
+                    <span class="text-danger">
+                        @error('password')
+                            {{ $message }}
+                        @enderror
+                    </span>
+                    <label for="password">Confirm Password</label>
+                    <input type="password" name="password_confirm" id="" class="form-control"
+                        placeholder="retype password">
+                    <span class="text-danger">
+                        @error('password_confirm')
+                            {{ $message }}
+                        @enderror
+                    </span>
 
                 </div>
                 <div class="form-group">

@@ -18,6 +18,14 @@ class CustomerController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email',
+                'password' => 'required',
+                'password_confirm' => 'required|same:password'
+            ]
+        );
         echo "<pre>";
         print_r($request->all());
 
