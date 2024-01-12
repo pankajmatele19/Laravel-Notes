@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-   
+
 </head>
 
 <body>
@@ -36,92 +36,58 @@
     </nav>
     <div class="container">
         <h2> {{ $title }}</h2>
-        @if ($title == 'Update Customer')
-            <form id="upform" method="post">
-                @csrf
-                <div class="form-group">
-                    <label for="">Name</label>
-                    <input type="text" name="name" id="" class="form-control" placeholder="enter name"
-                        value=" {{ $customer->name }}">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="" class="form-control" placeholder="enter email"
-                        value="{{ $customer->email }}">
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="" class="form-control"
-                        placeholder="enter password" value="{{ $customer->password }}">
+        <form id="regform" method="post">
+            @csrf
+            <div class="form-group">
+                <label for="">Name</label>
+                <input type="text" name="name" id="" class="form-control" placeholder="enter name">
+                <span class="text-danger">
+                    @error('name')
+                        {{ $message }}
+                    @enderror
+                </span>
+                <label for="email">Email</label>
+                <input type="email" name="email" id="" class="form-control" placeholder="enter email">
+                <span class="text-danger">
+                    @error('email')
+                        {{ $message }}
+                    @enderror
+                </span>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="" class="form-control" placeholder="enter password">
+                <span class="text-danger">
+                    @error('password')
+                        {{ $message }}
+                    @enderror
+                </span>
+                <label for="password">Confirm Password</label>
+                <input type="password" name="password_confirm" id="" class="form-control"
+                    placeholder="retype password">
+                <span class="text-danger">
+                    @error('password_confirm')
+                        {{ $message }}
+                    @enderror
+                </span>
 
-                </div>
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <br>
-                    <input type="radio" name="gender" id="" class="form-radio" value="M"
-                        {{ $customer->gender == 'M' ? 'checked' : '' }}>
-                    <label for="gender">Male</label>
-                    <input type="radio" name="gender" id="" class="form-radio" value="F"
-                        {{ $customer->gender == 'F' ? 'checked' : '' }}>
-                    <label for="gender">Female</label>
-                    <input type="radio" name="gender" id="" class="form-radio" value="O"
-                        {{ $customer->gender == 'O' ? 'checked' : '' }}>
-                    <label for="gender">Other</label>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </div>
-            </form>
-        @else
-            <form id="regform" method="post">
-                <div class="form-group">
-                    <label for="">Name</label>
-                    <input type="text" name="name" id="" class="form-control" placeholder="enter name">
-                    <span class="text-danger">
-                        @error('name')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="" class="form-control" placeholder="enter email">
-                    <span class="text-danger">
-                        @error('email')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="" class="form-control"
-                        placeholder="enter password">
-                    <span class="text-danger">
-                        @error('password')
-                            {{ $message }}
-                        @enderror
-                    </span>
-                    <label for="password">Confirm Password</label>
-                    <input type="password" name="password_confirm" id="" class="form-control"
-                        placeholder="retype password">
-                    <span class="text-danger">
-                        @error('password_confirm')
-                            {{ $message }}
-                        @enderror
-                    </span>
-
-                </div>
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <br>
-                    <input type="radio" name="gender" id="" class="form-radio" value="M">
-                    <label for="gender">Male</label>
-                    <input type="radio" name="gender" id="" class="form-radio" value="F">
-                    <label for="gender">Female</label>
-                    <input type="radio" name="gender" id="" class="form-radio" value="O">
-                    <label for="gender">Other</label>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </div>
-            </form>
-        @endif
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <br>
+                <input type="radio" name="gender" id="" class="form-radio" value="M">
+                <label for="gender">Male</label>
+                <input type="radio" name="gender" id="" class="form-radio" value="F">
+                <label for="gender">Female</label>
+                <input type="radio" name="gender" id="" class="form-radio" value="O">
+                <label for="gender">Other</label>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Register</button>
+            </div>
+        </form>
 
     </div>
     </div>
-    </form>
+
 
 
     <!-- Optional JavaScript -->
@@ -136,26 +102,13 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
     <script script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-     <script>
+    <script>
         $(document).ready(function() {
-            $(document).on('submit', '#regform', function(e) {
+            $('#regform').on('submit', function(e) {
                 e.preventDefault();
                 var form_data = $(this).serialize();
                 $.ajax({
-                    url: "{{ url('/customer/regform') }}",
-                    type: 'POST',
-                    data: form_data,
-                    success: function(response) {
-                        console.log(response);
-                    }
-                });
-            });
-
-            $(document).on('submit', '#upform', function(e) {
-                e.preventDefault();
-                var form_data = $(this).serialize();
-                $.ajax({
-                    url: "{{ url('/customer/view') }}",
+                    url: "{{ url('/') }}/customer/regform",
                     type: 'POST',
                     data: form_data,
                     success: function(response) {
