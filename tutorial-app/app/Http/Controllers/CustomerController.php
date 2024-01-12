@@ -12,7 +12,7 @@ class CustomerController extends Controller
     {
         $url = url("/customer/regform");
         $title = "Customer Registration";
-        $data = compact('url','title');
+        $data = compact('url', 'title');
         return view('regform')->with($data);
     }
 
@@ -28,16 +28,20 @@ class CustomerController extends Controller
         );
         echo "<pre>";
         print_r($request->all());
+        // $cust = Customer::where('email', $request['email'])->first();
+        // if ($cust->count() > 0) {
+        //     return redirect('/customer/regform')->with('error', 'Customer already exists!');
+        // } else {
+            $customers = new Customer();
+            $customers->name = $request['name'];
+            $customers->email = $request['email'];
+            $customers->gender = $request['gender'];
+            $customers->password = $request['password'];
 
-        $customers = new Customer();
-        $customers->name = $request['name'];
-        $customers->email = $request['email'];
-        $customers->gender = $request['gender'];
-        $customers->password = $request['password'];
+            $customers->save();
 
-        $customers->save();
-
-        return redirect('/customer/view');
+            return redirect('/customer/view');
+        // }
     }
 
     public function view()
@@ -66,11 +70,12 @@ class CustomerController extends Controller
             $url = url('/customer/update') . "/" . $id;
             $title = "Update Customer";
             $customer = Customer::find($id);
-            $data = compact('customer','title','url');
+            $data = compact('customer', 'title', 'url');
             return view('regform')->with($data);
         }
     }
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         $id = $request['id'];
         $customer = Customer::find($id);
         $customer->name = $request['name'];
@@ -81,11 +86,13 @@ class CustomerController extends Controller
         return redirect('/customer/view');
     }
 
-    public function loginform() {
+    public function loginform()
+    {
         return view('login');
     }
 
-    public function auth(Request $request) {
+    public function auth(Request $request)
+    {
 
         $request->validate(
             [
@@ -98,12 +105,11 @@ class CustomerController extends Controller
         // print_r($request->all());
 
         $email = $request['email'];
-        $password= $request['password'];
-        $cust = Customer::where('email',$email)->where("password",$password)->first();
+        $password = $request['password'];
+        $cust = Customer::where('email', $email)->where("password", $password)->first();
         if ($cust->count() > 0) {
             return redirect('/customer/view');
-        }
-        else {
+        } else {
             return redirect('/customer/login');
         }
     }

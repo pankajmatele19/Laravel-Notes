@@ -34,6 +34,11 @@
                     class="btn btn-success my-2 my-sm-0">Login</button></a>
         </div>
     </nav>
+    @if (session()->has('error'))
+        <div class="alert alert-danger">
+            {{ session()->get('error') }}
+        </div>
+    @endif
     <div class="container">
         <h2> {{ $title }}</h2>
         <form id="regform" method="post">
