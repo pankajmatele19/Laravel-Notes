@@ -10,6 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   
 </head>
 
 <body>
@@ -35,9 +36,9 @@
     </nav>
     <div class="container">
         <h2> {{ $title }}</h2>
-        <form action={{ $url }} method="post">
-            @csrf
-            @if ($title == 'Update Customer')
+        @if ($title == 'Update Customer')
+            <form id="upform" method="post">
+                @csrf
                 <div class="form-group">
                     <label for="">Name</label>
                     <input type="text" name="name" id="" class="form-control" placeholder="enter name"
@@ -63,7 +64,12 @@
                         {{ $customer->gender == 'O' ? 'checked' : '' }}>
                     <label for="gender">Other</label>
                 </div>
-            @else
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        @else
+            <form id="regform" method="post">
                 <div class="form-group">
                     <label for="">Name</label>
                     <input type="text" name="name" id="" class="form-control" placeholder="enter name">
@@ -107,10 +113,12 @@
                     <input type="radio" name="gender" id="" class="form-radio" value="O">
                     <label for="gender">Other</label>
                 </div>
-            @endif
-            <div class="form-group">
-                <button class="btn btn-primary">Register</button>
-            </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        @endif
+
     </div>
     </div>
     </form>
@@ -126,6 +134,36 @@
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+     <script>
+        $(document).ready(function() {
+            $(document).on('submit', '#regform', function(e) {
+                e.preventDefault();
+                var form_data = $(this).serialize();
+                $.ajax({
+                    url: "{{ url('/customer/regform') }}",
+                    type: 'POST',
+                    data: form_data,
+                    success: function(response) {
+                        console.log(response);
+                    }
+                });
+            });
+
+            $(document).on('submit', '#upform', function(e) {
+                e.preventDefault();
+                var form_data = $(this).serialize();
+                $.ajax({
+                    url: "{{ url('/customer/view') }}",
+                    type: 'POST',
+                    data: form_data,
+                    success: function(response) {
+                        console.log(response);
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

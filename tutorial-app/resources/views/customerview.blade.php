@@ -10,6 +10,23 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script>
+        $(document).ready(function() {
+            $(document).on('submit', '#update', function(e) {
+                e.preventDefault();
+                var form_data = $(this).serialize();
+                $.ajax({
+                    url: "{{ url('/customer/update') }}",
+                    type: 'POST',
+                    data: form_data,
+                    success: function(response) {
+                        console.log(response);
+                    }
+                });
+            });
+
+        })
+    </script>
 </head>
 
 <body>
@@ -26,11 +43,12 @@
                     <a class="nav-link" href="{{ url('/customer/view') }}">View <span
                             class="sr-only">(current)</span></a>
                 </li>
-              
+
             </ul>
             <a class="nav-item" href="{{ url('/customer/regform') }}"><button
-                            class="btn btn-primary my-2 my-sm-0">Register</button></a>
-            <a class="nav-item" href="{{ url('/customer/login') }}"><button class="btn btn-success my-2 my-sm-0">Login</button></a>
+                    class="btn btn-primary my-2 my-sm-0">Register</button></a>
+            <a class="nav-item" href="{{ url('/customer/login') }}"><button
+                    class="btn btn-success my-2 my-sm-0">Login</button></a>
         </div>
     </nav>
     <br>
@@ -64,10 +82,76 @@
                                 Other
                             @endif
                         </td>
-                        <td><a href="{{ url('/customer/edit') }}/{{ $cust->id }}"><button
-                                    class="btn btn-primary">Edit</button></a>
+                        <td>
+                            {{-- <td><a href="{{ url('/customer/edit') }}/{{ $cust->id }}"><button
+                                    class="btn btn-primary">Edit</button></a> --}}
                             {{-- <a href="{{ url('/customer/delete') }}/{{ $cust->id }}"><button
                                     class="btn btn-danger">Delete</button></a> --}}
+
+                            <button type="button" class="btn btn-primary " data-toggle="modal"
+                                data-target="#ModalLoginForm-{{ $cust->id }}">
+                                Edit
+                            </button>
+                            <!-- Modal HTML Markup -->
+                            <div id="ModalLoginForm-{{ $cust->id }}" class="modal fade">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title">Update Customer</h1>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <form role="form" method="POST" id="update-{{ $cust->id }}" action="">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{$cust->id}}">
+                                                <div class="form-group">
+                                                    <label class="control-label">Username</label>
+                                                    <div>
+                                                        <input type="text" class="form-control input-lg"
+                                                            name="name" value="{{ $cust->name }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">E-Mail Address</label>
+                                                    <div>
+                                                        <input type="email" class="form-control input-lg"
+                                                            name="email" value="{{ $cust->email }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Password</label>
+                                                    <div>
+                                                        <input type="password" class="form-control input-lg"
+                                                            name="password" value="{{ $cust->password }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Password</label>
+                                                    <div>
+                                                        <input type="radio" class="form-radio" name="gender"
+                                                            value="M" {{ $cust->gender == 'M' ? 'checked' : '' }}>
+                                                        <label for="Male">Male</label>
+                                                        <input type="radio" class="form-radio" name="gender"
+                                                            value="F" {{ $cust->gender == 'F' ? 'checked' : '' }}>
+                                                        <label for="Female">Female</label>
+                                                        <input type="radio" class="form-radio" name="gender"
+                                                            value="O" {{ $cust->gender == 'O' ? 'checked' : '' }}>
+                                                        <label for="Other">Other</label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div>
+                                                        <button type="submit" class="btn btn-success">
+                                                            Update
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+
 
                             <button type="button" class="btn btn-danger" data-toggle="modal"
                                 data-target="#exampleModal-{{ $cust->id }}">
@@ -80,7 +164,8 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Are you sure ?</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>

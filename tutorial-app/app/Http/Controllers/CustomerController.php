@@ -70,7 +70,8 @@ class CustomerController extends Controller
             return view('regform')->with($data);
         }
     }
-    public function update(Request $request, $id) {
+    public function update(Request $request) {
+        $id = $request['id'];
         $customer = Customer::find($id);
         $customer->name = $request['name'];
         $customer->email = $request['email'];

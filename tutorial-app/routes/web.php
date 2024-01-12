@@ -5,6 +5,7 @@ use App\Models\Customer;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DemoController;
 use App\Http\Controllers\CustomerController;
+
 /*                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,31 +49,37 @@ use App\Http\Controllers\CustomerController;
 //     return view('home');
 // });
 
-Route::get('/',[DemoController::class,'index']);
+// Route::get('/',[DemoController::class,'index']);
 
-Route::get('/register',[RegisterForm::class, 'index']);
+// Route::get('/register',[RegisterForm::class, 'index']);
 
-Route::post('/register',[RegisterForm::class, 'register']);
+// Route::post('/register',[RegisterForm::class, 'register']);
 
-Route::get('/customer', function() {
+Route::get('/', [CustomerController::class, 'loginform']);
+Route::post('/', [CustomerController::class, 'auth']);
+
+
+Route::get('/customer', function () {
     $customer = Customer::all();
 
     echo "<pre>";
     print_r($customer);
 });
 
-Route::get("/customer/regform",[CustomerController::class,"index"]);
+Route::get("/customer/regform", [CustomerController::class, "index"]);
 
-Route::post("/customer/regform",[CustomerController::class,"store"]);
+Route::post("/customer/regform", [CustomerController::class, "store"]);
 
-Route::get("/customer/view",[CustomerController::class,"view"]);
+Route::get("/customer/view", [CustomerController::class, "view"]);
 
-Route::get("/customer/delete/{customerid}",[CustomerController::class,"delete"]);
+Route::post("/customer/view", [CustomerController::class, "update"]);
 
-Route::post("/customer/update/{customerid}",[CustomerController::class,"update"]);
+Route::get("/customer/delete/{customerid}", [CustomerController::class, "delete"]);
 
-Route::get("/customer/edit/{customerid}",[CustomerController::class,"edit"]);
+Route::post("/customer/edit", [CustomerController::class, "update"]);
 
-Route::get('/customer/login',[CustomerController::class,'loginform']);
+Route::get("/customer/edit", [CustomerController::class, "edit"]);
 
-Route::post('/customer/login',[CustomerController::class,'auth']);
+Route::get('/customer/login', [CustomerController::class, 'loginform']);
+
+Route::post('/customer/login', [CustomerController::class, 'auth']);
