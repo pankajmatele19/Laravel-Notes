@@ -101,9 +101,10 @@
                                         </div>
                                         <div class="modal-body">
 
-                                            <form role="form" method="POST" id="update-{{ $cust->id }}" action="">
+                                            <form role="form" method="POST" id="update-{{ $cust->id }}"
+                                                action="">
                                                 @csrf
-                                                <input type="hidden" name="id" value="{{$cust->id}}">
+                                                <input type="hidden" name="id" value="{{ $cust->id }}">
                                                 <div class="form-group">
                                                     <label class="control-label">Username</label>
                                                     <div>
