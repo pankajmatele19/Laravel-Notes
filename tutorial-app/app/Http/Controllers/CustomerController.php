@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class CustomerController extends Controller
 {
@@ -16,44 +20,77 @@ class CustomerController extends Controller
         return view('regform')->with($data);
     }
 
-    public function store(Request $request)
+    // public function store(Request $request)
+    // {
+    // $request->validate(
+    //     [
+    //         'name' => 'required',
+    //         'email' => 'required|email|unique:customer',
+    //         'password' => 'required',
+    //         'password_confirm' => 'required|same:password'
+    //     ]
+    // );
+    // echo "<pre>";
+    // print_r($request->all());
+    //     $customers = new Customer();
+    //     $customers->name = $request['name'];
+    //     $customers->email = $request['email'];
+    //     $customers->gender = $request['gender'];
+    //     $customers->password = $request['password'];
+
+    //     $res = $customers->save();
+
+    //     if($res) {
+    //         return back()->with('success','Customer Registered Successfully!');
+    //     }
+    //     else {
+    //         return back()->with('error','Customer Already Registered!');
+    //     }
+    // // }
+    // }
+
+    // protected function validator(array $data)
+    // {
+    //     return Validator::make($data, [
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    //         'password' => ['required', 'string', 'min:8', 'confirmed'],
+    //     ]);
+    // }
+
+    public function create(Request $request)
     {
         $request->validate(
             [
                 'name' => 'required',
-                'email' => 'required|email',
+                'email' => 'required|email|unique:customer',
                 'password' => 'required',
                 'password_confirm' => 'required|same:password'
             ]
         );
-        echo "<pre>";
-        print_r($request->all());
-        // $cust = Customer::where('email', $request['email'])->first();
-        // if ($cust->count() > 0) {
-        //     return redirect('/customer/regform')->with('error', 'Customer already exists!');
-        // } else {
-            $customers = new Customer();
-            $customers->name = $request['name'];
-            $customers->email = $request['email'];
-            $customers->gender = $request['gender'];
-            $customers->password = $request['password'];
 
-            $customers->save();
+        User::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
 
-            return redirect('/customer/view');
-        // }
+
+        return redirect('login');
     }
+
 
     public function view()
     {
-
+        $user = auth()->user();
         $customer = Customer::all();
 
-        $data = compact('customer');
+        $data = compact('customer', 'user');
 
         return view('customerview')->with($data);
 
     }
+
 
     public function delete($id)
     {
@@ -61,6 +98,7 @@ class CustomerController extends Controller
 
         return redirect()->back();
     }
+
 
     public function edit($id)
     {
@@ -74,44 +112,84 @@ class CustomerController extends Controller
             return view('regform')->with($data);
         }
     }
+
+
     public function update(Request $request)
     {
         $id = $request['id'];
         $customer = Customer::find($id);
         $customer->name = $request['name'];
         $customer->email = $request['email'];
-        $customer->gender = $request['gender'];
         $customer->password = $request['password'];
         $customer->save();
         return redirect('/customer/view');
     }
+
+
 
     public function loginform()
     {
         return view('login');
     }
 
-    public function auth(Request $request)
+
+    public function login_user(Request $request)
     {
 
         $request->validate(
             [
                 'email' => 'required|email',
                 'password' => 'required',
-                'password_confirm' => 'required|same:password'
+                // 'password_confirm' => 'required|same:password'
             ]
         );
+
         // echo "<pre>";
         // print_r($request->all());
 
         $email = $request['email'];
         $password = $request['password'];
-        $cust = Customer::where('email', $email)->where("password", $password)->first();
-        if ($cust->count() > 0) {
+
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+
+            $cust = User::where('email', $email)->first();
+            Auth::login($cust);
             return redirect('/customer/view');
-        } else {
-            return redirect('/customer/login');
+            // return back()->with('success','Login success!');
+
         }
+    }
+
+    // dd("after if");
+
+    // if ($cust->count() > 0) {
+    //     $request->session()->put("user", $cust->first()->name);
+    //     return redirect('/customer/view');
+    // } else {
+    //     return redirect('/customer/login');
+    // }
+
+
+    // Auth::attempt([email,pass])
+
+
+    // true
+    // $user = User::where('email',$email)->first()
+    // Auth::login($user)
+    // redirect (success)
+
+    //false
+    // redirect with errorsyy
+
+    public function logout(Request $request)
+    {
+        $user = Auth::user();
+        
+        if (isset($user->name)) {
+
+            Auth::logout();
+        }
+        return redirect('/customer/login');
     }
 
 }

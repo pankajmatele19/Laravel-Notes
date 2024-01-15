@@ -25,6 +25,7 @@
                 });
             });
 
+
         })
     </script>
 </head>
@@ -43,12 +44,30 @@
                     <a class="nav-link" href="{{ url('/customer/view') }}">View <span
                             class="sr-only">(current)</span></a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @if (isset($user->name))
+                            {{ $user->name }}
+                        @else
+                            Guest
+                        @endif
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
+                    </div>
+                </li>
 
             </ul>
-            <a class="nav-item" href="{{ url('/customer/regform') }}"><button
-                    class="btn btn-primary my-2 my-sm-0">Register</button></a>
-            <a class="nav-item" href="{{ url('/customer/login') }}"><button
-                    class="btn btn-success my-2 my-sm-0">Login</button></a>
+            @if (isset($user->name))
+            
+            @else
+                <a class="nav-item" href="{{ url('/customer/regform') }}"><button
+                        class="btn btn-primary my-2 my-sm-0">Register</button></a>
+                <a class="nav-item" href="{{ url('/customer/login') }}"><button
+                        class="btn btn-success my-2 my-sm-0">Login</button></a>
+            @endif
+
         </div>
     </nav>
     <br>
@@ -62,7 +81,6 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Password</th>
-                    <th>Gender</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -73,7 +91,7 @@
                         <td>{{ $cust->name }}</td>
                         <td>{{ $cust->email }}</td>
                         <td>{{ $cust->password }}</td>
-                        <td>
+                        {{-- <td>
                             @if ($cust->gender == 'M')
                                 Male
                             @elseif($cust->gender == 'F')
@@ -81,7 +99,7 @@
                             @else
                                 Other
                             @endif
-                        </td>
+                        </td> --}}
                         <td>
                             {{-- <td><a href="{{ url('/customer/edit') }}/{{ $cust->id }}"><button
                                     class="btn btn-primary">Edit</button></a> --}}
@@ -128,7 +146,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="control-label">Password</label>
-                                                    <div>
+                                                    {{-- <div>
                                                         <input type="radio" class="form-radio" name="gender"
                                                             value="M" {{ $cust->gender == 'M' ? 'checked' : '' }}>
                                                         <label for="Male">Male</label>
@@ -136,9 +154,10 @@
                                                             value="F" {{ $cust->gender == 'F' ? 'checked' : '' }}>
                                                         <label for="Female">Female</label>
                                                         <input type="radio" class="form-radio" name="gender"
-                                                            value="O" {{ $cust->gender == 'O' ? 'checked' : '' }}>
+                                                            value="O"
+                                                            {{ $cust->gender == 'O' ? 'checked' : '' }}>
                                                         <label for="Other">Other</label>
-                                                    </div>
+                                                    </div> --}}
                                                 </div>
                                                 <div class="form-group">
                                                     <div>

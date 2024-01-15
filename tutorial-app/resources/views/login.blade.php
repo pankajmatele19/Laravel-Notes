@@ -36,13 +36,14 @@
         @endphp
       </pre> --}}
     <div class="container">
+
         <h2>Customer Login</h2>
         <form id="login" method="post">
             @csrf
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="text" name="email" id="" class="form-control" placeholder="enter email"
-                    aria-describedby="helpId">
+                    aria-describedby="helpId" value="{{ old('email') }}">
                 <span class="text-danger">
                     @error('email')
                         {{ $message }}
@@ -50,17 +51,9 @@
                 </span>
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password" class="form-control" placeholder="enter password"
-                    aria-describedby="helpId">
+                    aria-describedby="helpId" value="{{ old('password') }}">
                 <span class="text-danger">
                     @error('password')
-                        {{ $message }}
-                    @enderror
-                </span>
-                <label for="password">Confirm Password</label>
-                <input type="password" name="password_confirm" id="" class="form-control"
-                    placeholder="enter password again" aria-describedby="helpId">
-                <span class="text-danger">
-                    @error('password_confirm')
                         {{ $message }}
                     @enderror
                 </span>
@@ -68,6 +61,7 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Login</button>
             </div>
+            <span><a href="{{ url('/customer/regform') }}">New Customer ? Register Here</a></span>
         </form>
     </div>
     <!-- Optional JavaScript -->

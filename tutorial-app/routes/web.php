@@ -55,31 +55,59 @@ use App\Http\Controllers\CustomerController;
 
 // Route::post('/register',[RegisterForm::class, 'register']);
 
-Route::get('/', [CustomerController::class, 'loginform']);
-Route::post('/', [CustomerController::class, 'auth']);
+// Route::get('/', [CustomerController::class, 'loginform']);
+// Route::post('/', [CustomerController::class, 'auth']);
 
 
-Route::get('/customer', function () {
-    $customer = Customer::all();
+// Route::get('/customer', function () {
+//     $customer = Customer::all();
 
-    echo "<pre>";
-    print_r($customer);
-});
+//     echo "<pre>";
+//     print_r($customer);
+// });
 
-Route::get("/customer/regform", [CustomerController::class, "index"]);
+// Route::get("/customer/regform", [CustomerController::class, "index"]);
 
-Route::post("/customer/regform", [CustomerController::class, "store"]);
+// Route::post("/customer/regform", [CustomerController::class, "store"]);
 
-Route::get("/customer/view", [CustomerController::class, "view"]);
+// Route::get("/customer/view", [CustomerController::class, "view"]);
 
-Route::post("/customer/view", [CustomerController::class, "update"]);
+// Route::post("/customer/view", [CustomerController::class, "update"]);
 
-Route::get("/customer/delete/{customerid}", [CustomerController::class, "delete"]);
+// Route::get("/customer/delete/{customerid}", [CustomerController::class, "delete"]);
 
-Route::post("/customer/edit", [CustomerController::class, "update"]);
+// Route::post("/customer/edit", [CustomerController::class, "update"]);
 
-Route::get("/customer/edit", [CustomerController::class, "edit"]);
+// Route::get("/customer/edit", [CustomerController::class, "edit"]);
+
+// Route::get('/customer/login', [CustomerController::class, 'loginform']);
+
+// Route::post('/customer/login', [CustomerController::class, 'auth']);
 
 Route::get('/customer/login', [CustomerController::class, 'loginform']);
 
-Route::post('/customer/login', [CustomerController::class, 'auth']);
+Route::post('/customer/login', [CustomerController::class, 'login_user']);
+
+Route::get("/customer/regform", [CustomerController::class, "index"]);
+
+Route::post("/customer/regform", [CustomerController::class, "create"]);
+
+Route::get('/', [CustomerController::class, 'loginform']);
+
+Route::get('/logout', [CustomerController::class, 'logout']);
+
+Route::group(['middleware' => 'auth'], function () {
+
+
+    Route::get("/customer/view", [CustomerController::class, "view"]);
+
+    Route::post("/customer/view", [CustomerController::class, "update"]);
+
+    Route::get("/customer/delete/{customerid}", [CustomerController::class, "delete"]);
+
+    Route::post("/customer/edit", [CustomerController::class, "update"]);
+
+    Route::get("/customer/edit", [CustomerController::class, "edit"]);
+
+
+});

@@ -14,34 +14,19 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="{{ url('/customer/view') }}">Customer Management</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/customer/view') }}">View <span
-                            class="sr-only">(current)</span></a>
-                </li>
-            </ul>
-            <a class="nav-item" href="{{ url('/customer/regform') }}"><button
-                    class="btn btn-primary my-2 my-sm-0">Register</button></a>
-            <a class="nav-item" href="{{ url('/customer/login') }}"><button
-                    class="btn btn-success my-2 my-sm-0">Login</button></a>
-        </div>
-    </nav>
-    @if (session()->has('error'))
-        <div class="alert alert-danger">
-            {{ session()->get('error') }}
-        </div>
-    @endif
     <div class="container">
         <h2> {{ $title }}</h2>
         <form id="regform" method="post">
+            @if (session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session()->get('success') }}
+                </div>
+            @elseif (session()->has('error'))
+                <div class="alert alert-danger">
+                    {{ session()->get('error') }}
+                </div>
+            @endif
             @csrf
             <div class="form-group">
                 <label for="">Name</label>
@@ -76,18 +61,9 @@
 
             </div>
             <div class="form-group">
-                <label for="gender">Gender</label>
-                <br>
-                <input type="radio" name="gender" id="" class="form-radio" value="M">
-                <label for="gender">Male</label>
-                <input type="radio" name="gender" id="" class="form-radio" value="F">
-                <label for="gender">Female</label>
-                <input type="radio" name="gender" id="" class="form-radio" value="O">
-                <label for="gender">Other</label>
-            </div>
-            <div class="form-group">
                 <button type="submit" class="btn btn-primary">Register</button>
             </div>
+            <span ><a href="{{url('/customer/login')}}">Already Registered Login Here!!</a></span>
         </form>
 
     </div>
