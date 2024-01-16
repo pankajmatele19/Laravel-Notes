@@ -94,6 +94,8 @@ Route::post("/customer/regform", [CustomerController::class, "create"]);
 
 Route::get('/', [CustomerController::class, 'loginform']);
 
+Route::post('/', [CustomerController::class, 'login_user']);
+
 Route::get('/logout', [CustomerController::class, 'logout']);
 
 Route::group(['middleware' => 'auth'], function () {

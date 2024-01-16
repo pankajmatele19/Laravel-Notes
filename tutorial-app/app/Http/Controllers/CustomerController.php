@@ -60,12 +60,12 @@ class CustomerController extends Controller
 
     public function create(Request $request)
     {
+
         $request->validate(
             [
                 'name' => 'required',
-                'email' => 'required|email|unique:customer',
+                'email' => 'required|email|unique:users',
                 'password' => 'required',
-                'password_confirm' => 'required|same:password'
             ]
         );
 
@@ -76,7 +76,7 @@ class CustomerController extends Controller
         ]);
 
 
-        return redirect('login');
+        return redirect('/customer/login');
     }
 
 
@@ -154,8 +154,8 @@ class CustomerController extends Controller
 
             $cust = User::where('email', $email)->first();
             Auth::login($cust);
-            return redirect('/customer/view');
-            // return back()->with('success','Login success!');
+            // return redirect('/customer/view');
+            return response()->json(['success' => 'Login success!']);
 
         }
     }
@@ -184,7 +184,7 @@ class CustomerController extends Controller
     public function logout(Request $request)
     {
         $user = Auth::user();
-        
+
         if (isset($user->name)) {
 
             Auth::logout();

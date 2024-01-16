@@ -18,15 +18,16 @@
     <div class="container">
         <h2> {{ $title }}</h2>
         <form id="regform" method="post">
-            @if (session()->has('success'))
+            @if (session('success'))
                 <div class="alert alert-success">
-                    {{ session()->get('success') }}
-                </div>
-            @elseif (session()->has('error'))
-                <div class="alert alert-danger">
-                    {{ session()->get('error') }}
+                    {{ session('success') }}
                 </div>
             @endif
+            <span class="text-danger">
+                @error('error')
+                    {{ $message }}
+                @enderror
+            </span>
             @csrf
             <div class="form-group">
                 <label for="">Name</label>
@@ -50,20 +51,20 @@
                         {{ $message }}
                     @enderror
                 </span>
-                <label for="password">Confirm Password</label>
+                {{-- <label for="password">Confirm Password</label>
                 <input type="password" name="password_confirm" id="" class="form-control"
                     placeholder="retype password">
                 <span class="text-danger">
                     @error('password_confirm')
                         {{ $message }}
                     @enderror
-                </span>
+                </span> --}}
 
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Register</button>
             </div>
-            <span ><a href="{{url('/customer/login')}}">Already Registered Login Here!!</a></span>
+            <span><a href="{{ url('/customer/login') }}">Already Registered Login Here!!</a></span>
         </form>
 
     </div>
@@ -75,9 +76,10 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        < /scriptzzz> <
+        script src = "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity = "sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin = "anonymous" >
     </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
