@@ -36,29 +36,29 @@
                     @error('name')
                         {{ $message }}
                     @enderror
-                </span>
+                </span><br>
                 <label for="email">Email</label>
                 <input type="email" name="email" id="" class="form-control" placeholder="enter email">
                 <span class="text-danger">
                     @error('email')
                         {{ $message }}
                     @enderror
-                </span>
+                </span><br>
                 <label for="password">Password</label>
                 <input type="password" name="password" id="" class="form-control" placeholder="enter password">
                 <span class="text-danger">
                     @error('password')
                         {{ $message }}
                     @enderror
-                </span>
-                {{-- <label for="password">Confirm Password</label>
+                </span><br>
+                <label for="password">Confirm Password</label>
                 <input type="password" name="password_confirm" id="" class="form-control"
                     placeholder="retype password">
                 <span class="text-danger">
                     @error('password_confirm')
                         {{ $message }}
                     @enderror
-                </span> --}}
+                </span>
 
             </div>
             <div class="form-group">

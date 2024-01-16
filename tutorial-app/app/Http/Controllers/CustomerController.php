@@ -66,6 +66,7 @@ class CustomerController extends Controller
                 'name' => 'required',
                 'email' => 'required|email|unique:users',
                 'password' => 'required',
+                'password_confirm' => 'required|same:password',
             ]
         );
 
