@@ -155,9 +155,9 @@ class CustomerController extends Controller
 
             $cust = User::where('email', $email)->first();
             Auth::login($cust);
-            // return redirect('/customer/view');
-            return response()->json(['success' => 'Login success!']);
-
+            return redirect('/customer/view');
+            
+            
         }
     }
 
