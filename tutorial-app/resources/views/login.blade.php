@@ -13,7 +13,7 @@
     <script>
         $(document).ready(function() {
             $('#login').on('submit', function(e) {
-                e.preventDefault();
+                // e.preventDefault();/
                 var form_data = $(this).serialize();
                 $.ajax({
                     url: "{{ url('/') }}/customer/login",
@@ -39,6 +39,11 @@
 
         <h2>Customer Login</h2>
         <form id="login" method="post">
+            @if (session()->has('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             @csrf
             <div class="form-group">
                 <label for="email">Email</label>

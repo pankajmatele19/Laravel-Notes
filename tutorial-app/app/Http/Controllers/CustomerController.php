@@ -76,8 +76,14 @@ class CustomerController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
+        $response = [
+            'status' => 'success',
+            'message' => 'Registration successful!',
+        ];
 
-        return redirect('/customer/login');
+        return response()->json($response);
+
+        // return redirect('/customer/login');
     }
 
 
@@ -155,7 +161,9 @@ class CustomerController extends Controller
 
             $cust = User::where('email', $email)->first();
             Auth::login($cust);
+            // return redirect()->back()->with('success',"Login successful!");
             return redirect('/customer/view');
+            
             
             
         }

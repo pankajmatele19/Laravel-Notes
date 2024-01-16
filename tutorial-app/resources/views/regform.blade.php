@@ -18,11 +18,8 @@
     <div class="container">
         <h2> {{ $title }}</h2>
         <form id="regform" method="post">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+            <div id="response"></div>
+
             <span class="text-danger">
                 @error('error')
                     {{ $message }}
@@ -95,7 +92,11 @@
                     type: 'POST',
                     data: form_data,
                     success: function(response) {
-                        console.log(response);
+                        $('#response').html('<div class="alert alert-' + response.status +
+                            '">' + response.message + '</div>');
+                    },
+                    error: function(error) {
+                        console.log(error);
                     }
                 });
             });
